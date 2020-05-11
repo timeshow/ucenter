@@ -1,0 +1,22 @@
+{
+    "name": "timeshow/ucenter",
+    "description": "timeshow ucenter package for the laravel with php",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "timeshow",
+            "email": "397975896@qq.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.6" 
+    },
+    "autoload": {
+        "psr-4": { 
+            "TimeShow\\UCenter\\": "src/"
+        }
+    }
+	
+}
