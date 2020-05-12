@@ -1,7 +1,7 @@
 <?php
 namespace TimeShow\UCenter\Facades;
 
-use Illuminate\Support\Facade;
+use Illuminate\Support\Facades\Facade;
 
 class UCenter extends Facade
 {
