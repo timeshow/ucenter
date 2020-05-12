@@ -29,9 +29,9 @@ class UCenter
         }
     }
 
-    public function routes(){
-        Route::any(config('ucenter.url'.'api'.config('ucenter.apifilename'),'\TimeShow\UCenter\Controllers\ApiController@run'));
-    }
+//    public function routes(){
+//        Route::any(config('ucenter.url'.'api'.config('ucenter.apifilename'),'\TimeShow\UCenter\Controllers\ApiController@run'));
+//    }
 
     public function __call($name, $arguments)
     {
