@@ -1,8 +1,7 @@
 <?php
 namespace TimeShow\UCenter;
 
-use Config;
-use mysql_xdevapi\Exception;
+use Config,Route;
 
 class UCenter
 {
@@ -28,6 +27,10 @@ class UCenter
             define('UC_PPP',$config['ppp']);
             include __DIR__.'uc_client/client.php';
         }
+    }
+
+    public function routes(){
+        Route::any(config('ucenter.url'.'api'.config('ucenter.apifilename'),'\TimeShow\UCenter\Controllers\ApiController@run'));
     }
 
     public function __call($name, $arguments)

@@ -23,7 +23,7 @@ composer require timeshow/ucenter
 ~~~
 'providers' => [
 
-    'TimeShow\UCenter\UCenterServiceProvider'
+    TimeShow\UCenter\UCenterServiceProvider::class
 
 ]
 ~~~
@@ -33,7 +33,7 @@ composer require timeshow/ucenter
 ~~~
 'aliases' => [
 
-    'UCenter' => 'TimeShow\UCenter\Facades\UCenter'
+    'UCenter' => TimeShow\UCenter\UCenterServiceProvider::class
 
 ]
 ~~~

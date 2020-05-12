@@ -18,7 +18,7 @@ class UCenterServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/config/ucenter.php'=>config_path('ucenter.php'),
         ]);
-        $this->mergeConfigForm(__DIR__.'config/ucenter.php','ucenter');
+        $this->mergeConfigForm(__DIR__.'/config/ucenter.php','ucenter');
     }
 
     /**
