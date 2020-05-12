@@ -30,7 +30,7 @@ class UCenterServiceProvider extends ServiceProvider
         //
         $this->mergeConfigFrom(__DIR__.'/config/ucenter.php','ucenter');
         $this->app->bind('ucenter',function ($app){
-            return new UCenter;
+            return new UCenter();
         });
         $this->app->bind('TimeShow\UCenter\Contracts\Api',config('ucenter.service'));
     }
