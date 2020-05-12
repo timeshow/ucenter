@@ -41,7 +41,7 @@ composer require timeshow/ucenter
 ## 配置
 运行以下命令发布配置文件
 ~~~
-php artisan vendor:publish
+php artisan vendor:publish  --provider="TimeShow\UCenter\UCenterServiceProvider"
 ~~~
 ucenter配置项
 ~~~

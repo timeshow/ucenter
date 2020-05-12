@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace TimeShow\UCenter;
 
 use Illuminate\Support\ServiceProvider;
 
