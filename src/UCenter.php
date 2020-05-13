@@ -30,16 +30,16 @@ class UCenter
     }
 
     public function routes(){
-        Route::any(config('ucenter.url'.'/api/'.config('ucenter.apifilename'),'\TimeShow\UCenter\Controllers\ApiController@run'));
+        Route::any(config('ucenter.url').'/api/'.config('ucenter.apifilename'), '\Ershimei\Ucenter\Controllers\ApiController@run');
     }
 
     public function __call($name, $arguments)
     {
         // TODO: Implement __call() method.
-        if(function_exists($name)){
-            return call_user_func_array($name,$arguments);
-        }else{
-            throw new Exception('function name not exists');
+        if (function_exists($name)) {
+            return call_user_func_array($name, $arguments);
+        } else {
+            throw new Exception("function not exists");
         }
     }
 
