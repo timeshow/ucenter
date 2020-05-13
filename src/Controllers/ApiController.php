@@ -2,7 +2,7 @@
 namespace TimeShow\UCenter\Controllers;
 
 use App\Http\Controllers\Controller;
-use Request,Confit;
+use Request,Config;
 use TimeShow\UCenter\Contracts\Api;
 use TimeShow\UCenter\Services\Help;
 
@@ -29,9 +29,9 @@ class ApiController extends Controller
         $code = Request::input('code');
         parse_str(self::authcode($code, 'DECODE', UC_KEY), $get);
 
-        if(empty($get)){
+        if (empty($get)) {
             return 'Invalid Request';
-        }elseif (time() - $get['time'] > 3600){
+        } elseif (time() - $get['time'] > 3600) {
             return 'Authracation has expiried';
         }
 
