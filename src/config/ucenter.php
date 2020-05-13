@@ -6,7 +6,7 @@
 
 return [
     'url'            => env('UC_URL', ''),  //这里是你的项目所在的接口api的前缀，比如 /xx/api/uc 一般直接留空。
-    'connect'        => env('UC_CONNECT', null), //这里可以是 mysql或者null，null会通过socket远程请求接口的方式通信
+    'connect'        => env('UC_CONNECT', 'mysqli'), //这里可以是 mysql或者null，null会通过socket远程请求接口的方式通信
     'dbhost'         => env('UC_DBHOST', 'localhost'),
     'dbuser'         => env('UC_DBUSER', 'root'),
     'dbpw'           => env('UC_DBPW', 'root'),
