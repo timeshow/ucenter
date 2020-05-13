@@ -15,7 +15,7 @@ trait Help
         $key_length = strlen($cryptKey);
 
         $string = $operation == 'DECODE' ? base64_decode(substr($string,$ckey_length)) : sprintf('%010d',$expiry ? $expiry + time() : 0).substr(md5($string.$keyB),0,16).$string;
-        $string_length = $string($string);
+        $string_length = strlen($string);
 
         $result = '';
         $box = range(0,255);
