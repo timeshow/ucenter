@@ -2,7 +2,7 @@
 namespace TimeShow\UCenter\Services;
 
 trait Help{
-
+    
     public static function authcode($string, $operation = 'DECODE', $key = '', $expiry = 0)
     {
         $ckey_length = 4;
