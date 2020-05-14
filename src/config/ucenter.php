@@ -14,8 +14,8 @@ return [
     'dbcharset'      => env('UC_DBCHARSET', 'utf8'),
     'dbtablepre'     => env('UC_DBTABLEPRE', '`ucenter`.uc_'),
     'dbconnect'      => env('UC_DBCONNECT', '0'),
-    'key'            => env('UC_KEY', 'asflkhKFJHGH5648asdfasdfhj9845613asdf'),  //这个是通信密钥，必须和服务端统一【*】
-    'api'            => env('UC_API', 'http://localhost/ucenter'),                  //这个是uc_server的服务端地址【*】
+    'key'            => env('UC_KEY', '123456789'),  //这个是通信密钥，必须和服务端统一【*】
+    'api'            => env('UC_API', 'http://localhost/uc_server'),                  //这个是uc_server的服务端地址【*】
     'ip'             => env('UC_IP', '127.0.0.1'),
     'charset'        => env('UC_CHARSET', 'utf-8'),
     'appid'          => env('UC_APPID', '1'),   //这里是应用编号

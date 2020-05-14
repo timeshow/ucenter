@@ -1,7 +1,7 @@
 ## Ucenter Client For The Laravel
 
 ### 说明
-本项目在参考了多个相关类似项目的基础上修改调整。后续会继续完善...
+本项目在参考了多个相关类似项目的基础上修改调整。
 
 ### 安装
 
@@ -11,7 +11,7 @@
 只要在你的 `composer.json` 文件require中加入下面内容，就能获得最新版.
 
 ~~~
-"timeshow/ucenter": "^0.5.0"
+"timeshow/ucenter": "dev-master"
 ~~~
 
 然后需要运行 "composer update" 来更新你的项目  
@@ -71,6 +71,28 @@ ucenter配置项
 
 
 ~~~
+
+## 环境变量
+
+在 `.env` 环境变量中配置:
+
+~~~
+UC_CONNECT=mysqli
+UC_DBHOST=localhost
+UC_DBUSER=root
+UC_DBPW=root
+UC_DBNAME=ucenter
+UC_DBTABLEPRE=`ucenter`.uc_
+UC_KEY=123456789
+UC_API=http://localhost/uc_server
+UC_IP=127.0.0.1
+UC_APPID=1
+
+UC_APIFILENAME=uc
+~~~
+
+把配置项添加到 .env 文件底部
+
 
 ## 路由
 
