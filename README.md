@@ -51,7 +51,7 @@ ucenter配置项
 //config.php
 'url'		=> '', // 网站UCenter接收数据的Api地址前缀，一般默认留空。
 'api'		=> 'http://localhost/ucenter', // UCenter 的 URL 地址, 在调用头像时依赖此常量
-'connect'	=> 'mysqli', // 连接 UCenter 的方式: mysql/NULL, 默认为空时为 fscoketopen()
+'connect'	=> 'mysql', // 连接 UCenter 的方式: mysql/NULL, 默认为空时为 fscoketopen()
 'dbhost'	=> 'localhost', // UCenter 数据库主机
 'dbuser'	=> 'root', // UCenter 数据库用户名
 'dbpw'		=> 'root', // UCenter 数据库密码
@@ -77,7 +77,7 @@ ucenter配置项
 在 `.env` 环境变量中配置:
 
 ~~~
-UC_CONNECT=mysqli
+UC_CONNECT=mysql
 UC_DBHOST=localhost
 UC_DBUSER=root
 UC_DBPW=root
