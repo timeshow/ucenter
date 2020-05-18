@@ -50,7 +50,6 @@ ucenter配置项
 ~~~
 //config.php
 'url'		=> '', // 网站UCenter接收数据的Api地址前缀，一般默认留空。
-'api'		=> 'http://localhost/ucenter', // UCenter 的 URL 地址, 在调用头像时依赖此常量
 'connect'	=> 'mysql', // 连接 UCenter 的方式: mysql/NULL, 默认为空时为 fscoketopen()
 'dbhost'	=> 'localhost', // UCenter 数据库主机
 'dbuser'	=> 'root', // UCenter 数据库用户名
@@ -60,13 +59,14 @@ ucenter配置项
 'dbtablepre'=> '`uc`.uc_', // UCenter 数据库表前缀
 'key'		=> '666cLXgFsrl6TcvDflhrvdcziY8SnhP1eexl1eQ', // 与 UCenter 的通信密钥, 要与 UCenter 保持一致
 'charset'	=> 'utf-8', // UCenter 的字符集
+
+'api'		=> 'http://localhost/ucenter', // UCenter 的 URL 地址, 在调用头像时依赖此常量
 'ip'		=> '127.0.0.1', // UCenter 的 IP, 当 UC_CONNECT 为非 mysql 方式时, 并且当前应用服务器解析域名有问题时, 请设置此值
 'appid'		=> 1, //当前应用的 ID
 'ppp'		=> 20, //当前应用的 ID
 
 
 'apifilename'    => env('UC_APIFILENAME', 'uc'),   //这里是uc_server调用你的程序的接口，配置成uc的话，将会和前面的UC_URL配置一起形成这样的地址 url/api/uc
-
 'service'        => env('UC_SERVICE', 'TimeShow\UCenter\Services\Api'),   //这里如果要异步登陆，可以直接继承这个类实现其中的方法，也可以创建app/Service/UCenter.php(文件放哪里都可以，这里只是推荐) 实现该类实现的接口【*】
 
 
@@ -98,7 +98,10 @@ UC_APIFILENAME=uc
 
 在`routes/web.php`中写入:
 
-`Ucenter::routes();`
+~~~
+use TimeShow\UCenter\Facades\UCenter;
+UCenter::routes();
+~~~
 
 这个会添加一个api地址，用于同步登陆和退出
 
@@ -106,7 +109,7 @@ UC_APIFILENAME=uc
 ## 使用
 例如：获取用户名为test的信息
 ~~~
-$result = Ucenter::uc_get_user('test');
+$result = UCenter::uc_get_user('test');
 var_dump($result);
 ~~~
 
@@ -123,7 +126,7 @@ var_dump($result);
 ~~~
 一、查看以上配置是否正确
 二、在 routes/web.php 中修改
-//$result = Ucenter::uc_get_user('test');
+//$result = UCenter::uc_get_user('test');
 //var_dump($result);
 ~~~
 
