@@ -126,19 +126,20 @@ class usermodel {
 		return $user['uid'];
 	}
 
-	function add_user($username, $password, $email, $uid = 0, $questionid = '', $answer = '', $regip = '') {
+	function add_user($username, $password, $email, $uid = 0, $questionid = '', $answer = '', $regip = '',$mobile = '') {
 		$regip = empty($regip) ? $this->base->onlineip : $regip;
 		$salt = substr(uniqid(rand()), -6);
 		$password = md5(md5($password).$salt);
 		$sqladd = $uid ? "uid='".intval($uid)."'," : '';
 		$sqladd .= $questionid > 0 ? " secques='".$this->quescrypt($questionid, $answer)."'," : " secques='',";
+		$sqladd .= "mobile='$mobile',";
 		$this->db->query("INSERT INTO ".UC_DBTABLEPRE."members SET $sqladd username='$username', password='$password', email='$email', regip='$regip', regdate='".$this->base->time."', salt='$salt'");
 		$uid = $this->db->insert_id();
 		$this->db->query("INSERT INTO ".UC_DBTABLEPRE."memberfields SET uid='$uid'");
 		return $uid;
 	}
 
-	function edit_user($username, $oldpw, $newpw, $email, $ignoreoldpw = 0, $questionid = '', $answer = '') {
+	function edit_user($username, $oldpw, $newpw, $email, $ignoreoldpw = 0, $questionid = '', $answer = '',$mobile = '') {
 		$data = $this->db->fetch_first("SELECT username, uid, password, salt FROM ".UC_DBTABLEPRE."members WHERE username='$username'");
 
 		if($ignoreoldpw) {
@@ -156,7 +157,7 @@ class usermodel {
 		$sqladd .= $email ? ($sqladd ? ',' : '')." email='$email'" : '';
 		if($questionid !== '') {
 			if($questionid > 0) {
-				$sqladd .= ($sqladd ? ',' : '')." secques='".$this->quescrypt($questionid, $answer)."'";
+				$sqladd .= ($sqladd ? ',' : '')." secques='".$this->quescrypt($questionid, $answer, $mobile)."'";
 			} else {
 				$sqladd .= ($sqladd ? ',' : '')." secques=''";
 			}
