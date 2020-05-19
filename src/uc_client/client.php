@@ -278,8 +278,8 @@ function uc_friend_ls($uid, $page = 1, $pagesize = 10, $totalnum = 10, $directio
 	return UC_CONNECT == 'mysql' ? $return : uc_unserialize($return);
 }
 
-function uc_user_register($username, $password, $email, $questionid = '', $answer = '', $regip = '', $mobile = '') {
-	return call_user_func(UC_API_FUNC, 'user', 'register', array('username'=>$username, 'password'=>$password, 'email'=>$email, 'questionid'=>$questionid, 'answer'=>$answer, 'regip' => $regip, 'mobile'=>$mobile));
+function uc_user_register($username, $password, $email, $mobile, $questionid = '', $answer = '', $regip = '') {
+	return call_user_func(UC_API_FUNC, 'user', 'register', array('username'=>$username, 'password'=>$password, 'email'=>$email, 'mobile'=>$mobile, 'questionid'=>$questionid, 'answer'=>$answer, 'regip' => $regip));
 }
 
 function uc_user_login($username, $password, $isuid = 0, $checkques = 0, $questionid = '', $answer = '', $ip = '') {
@@ -311,8 +311,8 @@ function uc_user_synlogout() {
 	return $return;
 }
 
-function uc_user_edit($username, $oldpw, $newpw, $email, $ignoreoldpw = 0, $questionid = '', $answer = '', $mobile = '') {
-	return call_user_func(UC_API_FUNC, 'user', 'edit', array('username'=>$username, 'oldpw'=>$oldpw, 'newpw'=>$newpw, 'email'=>$email, 'ignoreoldpw'=>$ignoreoldpw, 'questionid'=>$questionid, 'answer'=>$answer, 'mobile'=>$mobile));
+function uc_user_edit($username, $oldpw, $newpw, $email, $mobile, $ignoreoldpw = 0, $questionid = '', $answer = '') {
+	return call_user_func(UC_API_FUNC, 'user', 'edit', array('username'=>$username, 'oldpw'=>$oldpw, 'newpw'=>$newpw, 'email'=>$email, 'mobile'=>$mobile, 'ignoreoldpw'=>$ignoreoldpw, 'questionid'=>$questionid, 'answer'=>$answer));
 }
 
 function uc_user_delete($uid) {

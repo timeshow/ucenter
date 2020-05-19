@@ -65,10 +65,10 @@ class usercontrol extends base {
 		$username = $this->input('username');
 		$password =  $this->input('password');
 		$email = $this->input('email');
+        $mobile = $this->input('mobile');
 		$questionid = $this->input('questionid');
 		$answer = $this->input('answer');
 		$regip = $this->input('regip');
-        $mobile = $this->input('mobile');
 
 		if(($status = $this->_check_username($username)) < 0) {
 			return $status;
@@ -76,7 +76,7 @@ class usercontrol extends base {
 		if(($status = $this->_check_email($email)) < 0) {
 			return $status;
 		}
-		$uid = $_ENV['user']->add_user($username, $password, $email, 0, $questionid, $answer, $regip, $mobile);
+		$uid = $_ENV['user']->add_user($username, $password, $email, $mobile, 0, $questionid, $answer, $regip);
 		return $uid;
 	}
 
@@ -86,15 +86,15 @@ class usercontrol extends base {
 		$oldpw = $this->input('oldpw');
 		$newpw = $this->input('newpw');
 		$email = $this->input('email');
+        $mobile = $this->input('mobile');
 		$ignoreoldpw = $this->input('ignoreoldpw');
 		$questionid = $this->input('questionid');
 		$answer = $this->input('answer');
-        $mobile = $this->input('mobile');
 
 		if(!$ignoreoldpw && $email && ($status = $this->_check_email($email, $username)) < 0) {
 			return $status;
 		}
-		$status = $_ENV['user']->edit_user($username, $oldpw, $newpw, $email, $ignoreoldpw, $questionid, $answer, $mobile);
+		$status = $_ENV['user']->edit_user($username, $oldpw, $newpw, $email, $mobile, $ignoreoldpw, $questionid, $answer);
 
 		if($newpw && $status > 0) {
 			$this->load('note');

@@ -4,7 +4,7 @@
 本项目在参考了多个相关类似项目的基础上修改调整。
 官方UCenter 1.6.0 版本不存在手机号码、用户标识等字段，
 使用官方安装包请获取V0.5.6版本，    使用`composer require timeshow/ucenter "0.5.6"`安装扩展包
-从V0.6.0版本开始新增手机号、用户标识、父类ID等字段，需在数据表`members`中添加`mobile,parent_id`相关字段
+从V0.6.0版本开始新增手机号、用户标识、父类ID等字段，需在数据表`members`中添加`mobile,UnionID,parent_id`相关字段
 
 ### 安装
 

@@ -126,20 +126,19 @@ class usermodel {
 		return $user['uid'];
 	}
 
-	function add_user($username, $password, $email, $uid = 0, $questionid = '', $answer = '', $regip = '',$mobile = '') {
+	function add_user($username, $password, $email,$mobile, $uid = 0, $questionid = '', $answer = '', $regip = '') {
 		$regip = empty($regip) ? $this->base->onlineip : $regip;
 		$salt = substr(uniqid(rand()), -6);
 		$password = md5(md5($password).$salt);
 		$sqladd = $uid ? "uid='".intval($uid)."'," : '';
 		$sqladd .= $questionid > 0 ? " secques='".$this->quescrypt($questionid, $answer)."'," : " secques='',";
-		$sqladd .= "mobile='$mobile',";
-		$this->db->query("INSERT INTO ".UC_DBTABLEPRE."members SET $sqladd username='$username', password='$password', email='$email', regip='$regip', regdate='".$this->base->time."', salt='$salt'");
+		$this->db->query("INSERT INTO ".UC_DBTABLEPRE."members SET $sqladd username='$username', password='$password', email='$email', mobile='$mobile', regip='$regip', regdate='".$this->base->time."', salt='$salt'");
 		$uid = $this->db->insert_id();
 		$this->db->query("INSERT INTO ".UC_DBTABLEPRE."memberfields SET uid='$uid'");
 		return $uid;
 	}
 
-	function edit_user($username, $oldpw, $newpw, $email, $ignoreoldpw = 0, $questionid = '', $answer = '',$mobile = '') {
+	function edit_user($username, $oldpw, $newpw, $email,$mobile, $ignoreoldpw = 0, $questionid = '', $answer = '') {
 		$data = $this->db->fetch_first("SELECT username, uid, password, salt FROM ".UC_DBTABLEPRE."members WHERE username='$username'");
 
 		if($ignoreoldpw) {
@@ -155,9 +154,10 @@ class usermodel {
 
 		$sqladd = $newpw ? "password='".md5(md5($newpw).$data['salt'])."'" : '';
 		$sqladd .= $email ? ($sqladd ? ',' : '')." email='$email'" : '';
+        $sqladd .= $mobile ? ($sqladd ? ',' : '')." mobile='$mobile'" : '';
 		if($questionid !== '') {
 			if($questionid > 0) {
-				$sqladd .= ($sqladd ? ',' : '')." secques='".$this->quescrypt($questionid, $answer, $mobile)."'";
+				$sqladd .= ($sqladd ? ',' : '')." secques='".$this->quescrypt($questionid, $answer)."'";
 			} else {
 				$sqladd .= ($sqladd ? ',' : '')." secques=''";
 			}
