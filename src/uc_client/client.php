@@ -564,4 +564,15 @@ function uc_check_version() {
 	return is_array($data) ? $data : $return;
 }
 
+function uc_get_mobile($mobile, $isuid=0) {
+    $return = call_user_func(UC_API_FUNC, 'user', 'get_mobile', array('mobile'=>$mobile, 'isuid'=>$isuid));
+    return UC_CONNECT == 'mysql' ? $return : uc_unserialize($return);
+}
+
+function uc_get_wx_unionid($wx_unionid, $isuid=0) {
+    $return = call_user_func(UC_API_FUNC, 'user', 'get_wx_unionid', array('wx_unionid'=>$wx_unionid, 'isuid'=>$isuid));
+    return UC_CONNECT == 'mysql' ? $return : uc_unserialize($return);
+}
+
+
 ?>

@@ -278,6 +278,39 @@ class usercontrol extends base {
 	}
 	function flashdata_decode($s) {
 	}
+
+    function onget_mobile() {
+        $this->init_input();
+        $mobile = $this->input('mobile');
+        if(!$this->input('isuid')) {
+            $status = $_ENV['user']->get_user_by_mobile($mobile);
+        } else {
+            $status = $_ENV['user']->get_user_by_uid($mobile);
+        }
+        if($status) {
+            return array($status['uid'],$status['username'],$status['email'],$status['mobile'],$status['wx_unionid']);
+        } else {
+            return 0;
+        }
+    }
+
+    function onget_wx_unionid() {
+        $this->init_input();
+        $wx_unionid = $this->input('wx_unionid');
+        if(!$this->input('isuid')) {
+            $status = $_ENV['user']->get_user_by_wx_unionid($wx_unionid);
+        } else {
+            $status = $_ENV['user']->get_user_by_uid($wx_unionid);
+        }
+        if($status) {
+            return array($status['uid'],$status['username'],$status['email'],$status['mobile'],$status['wx_unionid']);
+        } else {
+            return 0;
+        }
+    }
+
+
+
 }
 
 ?>

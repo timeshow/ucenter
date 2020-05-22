@@ -278,4 +278,14 @@ class usermodel {
 		$this->db->query("UPDATE ".UC_DBTABLEPRE."failedlogins SET count=count+1, lastupdate='".$this->base->time."' WHERE ip='".$ip."' OR ip='$username'");
 	}
 
+    function get_user_by_mobile($mobile) {
+        $arr = $this->db->fetch_first("SELECT * FROM ".UC_DBTABLEPRE."members WHERE mobile='$mobile'");
+        return $arr;
+    }
+
+    function get_user_by_wx_unionid($wx_unionid) {
+        $arr = $this->db->fetch_first("SELECT * FROM ".UC_DBTABLEPRE."members WHERE wx_unionid='$wx_unionid'");
+        return $arr;
+    }
+
 }
