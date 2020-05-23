@@ -578,5 +578,9 @@ function uc_user_register_wx($username, $wx_unionid, $email, $mobile = '', $ques
     return call_user_func(UC_API_FUNC, 'user', 'register_wx', array('username'=>$username, 'wx_unionid'=>$wx_unionid, 'email'=>$email, 'mobile'=>$mobile, 'questionid'=>$questionid, 'answer'=>$answer, 'regip' => $regip));
 }
 
+function uc_user_edit_wx($username, $wx_unionid, $email, $mobile, $ignoreoldpw = 0, $questionid = '', $answer = '') {
+    return call_user_func(UC_API_FUNC, 'user', 'edit_wx', array('username'=>$username, 'wx_unionid'=>$wx_unionid, 'email'=>$email, 'mobile'=>$mobile, 'ignoreoldpw'=>$ignoreoldpw, 'questionid'=>$questionid, 'answer'=>$answer));
+}
+
 
 ?>

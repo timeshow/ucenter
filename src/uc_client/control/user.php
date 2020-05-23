@@ -329,6 +329,24 @@ class usercontrol extends base {
         return $uid;
     }
 
+    function onedit_wx() {
+        $this->init_input();
+        $username = $this->input('username');
+        $wx_unionid = $this->input('wx_unionid');
+        $email = $this->input('email');
+        $mobile = $this->input('mobile');
+        $ignoreoldpw = $this->input('ignoreoldpw');
+        $questionid = $this->input('questionid');
+        $answer = $this->input('answer');
+
+        if(!$ignoreoldpw && $email && ($status = $this->_check_email($email, $username)) < 0) {
+            return $status;
+        }
+        $status = $_ENV['user']->edit_user($username, $wx_unionid, $email, $mobile, $ignoreoldpw, $questionid, $answer);
+
+        return $status;
+    }
+
 
 
 

@@ -300,6 +300,34 @@ class usermodel {
         return $uid;
     }
 
+    function edit_user_wx($username, $wx_unionid, $email,$mobile, $ignoreoldpw = 0, $questionid = '', $answer = '') {
+        $data = $this->db->fetch_first("SELECT username, uid, password, salt FROM ".UC_DBTABLEPRE."members WHERE username='$username'");
+
+        if($ignoreoldpw) {
+            $isprotected = $this->db->result_first("SELECT COUNT(*) FROM ".UC_DBTABLEPRE."protectedmembers WHERE uid = '$data[uid]'");
+            if($isprotected) {
+                return -8;
+            }
+        }
+
+        $sqladd = '';
+        $sqladd .= $email ? ($sqladd ? ',' : '')." email='$email'" : '';
+        $sqladd .= $mobile ? ($sqladd ? ',' : '')." mobile='$mobile'" : '';
+        if($questionid !== '') {
+            if($questionid > 0) {
+                $sqladd .= ($sqladd ? ',' : '')." secques='".$this->quescrypt($questionid, $answer)."'";
+            } else {
+                $sqladd .= ($sqladd ? ',' : '')." secques=''";
+            }
+        }
+        if($sqladd) {
+            $this->db->query("UPDATE ".UC_DBTABLEPRE."members SET $sqladd WHERE wx_unionid='$wx_unionid'");
+            return $this->db->affected_rows();
+        } else {
+            return -7;
+        }
+    }
+
 
 
 }
