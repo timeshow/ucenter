@@ -288,7 +288,7 @@ class usercontrol extends base {
             $status = $_ENV['user']->get_user_by_uid($mobile);
         }
         if($status) {
-            return array($status['uid'],$status['username'],$status['email'],$status['mobile'],$status['wx_unionid'],$status['parent_id']);
+            return array('uid'=>$status['uid'],'username'=>$status['username'],'email'=>$status['email'],'mobile'=>$status['mobile'],'wx_unionid'=>$status['wx_unionid'],'parent_id'=>$status['parent_id']);
         } else {
             return 0;
         }
@@ -303,30 +303,29 @@ class usercontrol extends base {
             $status = $_ENV['user']->get_user_by_uid($wx_unionid);
         }
         if($status) {
-            return array($status['uid'],$status['username'],$status['email'],$status['mobile'],$status['wx_unionid'],$status['parent_id']);
+            return array('uid'=>$status['uid'],'username'=>$status['username'],'email'=>$status['email'],'mobile'=>$status['mobile'],'wx_unionid'=>$status['wx_unionid'],'parent_id'=>$status['parent_id']);
         } else {
             return 0;
         }
     }
 
-    function onregister_mobile() {
+    function onregister_wx() {
         $this->init_input();
+        $username = $this->input('username');
+        $wx_unionid =  $this->input('wx_unionid');
+        $email = $this->input('email');
         $mobile = $this->input('mobile');
+        $questionid = $this->input('questionid');
+        $answer = $this->input('answer');
         $regip = $this->input('regip');
 
-
-        $uid = $_ENV['user']->add_mobile($mobile, 0, $regip);
-        return $uid;
-    }
-
-    function onregister_wx_unionid() {
-        $this->init_input();
-        $mobile = $this->input('mobile');
-        $wx_unionid = $this->input('wx_unionid');
-        $regip = $this->input('regip');
-
-
-        $uid = $_ENV['user']->add_wx_unionid($mobile, $wx_unionid, 0, $regip);
+        if(($status = $this->_check_username($username)) < 0) {
+            return $status;
+        }
+        if(($status = $this->_check_email($email)) < 0) {
+            return $status;
+        }
+        $uid = $_ENV['user']->add_user_wx($username, $wx_unionid, $email, $mobile, 0, $questionid, $answer, $regip);
         return $uid;
     }
 

@@ -574,5 +574,9 @@ function uc_get_wx_unionid($wx_unionid, $isuid=0) {
     return UC_CONNECT == 'mysql' ? $return : uc_unserialize($return);
 }
 
+function uc_user_register_wx($username, $wx_unionid, $email, $mobile = '', $questionid = '', $answer = '', $regip = '') {
+    return call_user_func(UC_API_FUNC, 'user', 'register_wx', array('username'=>$username, 'wx_unionid'=>$wx_unionid, 'email'=>$email, 'mobile'=>$mobile, 'questionid'=>$questionid, 'answer'=>$answer, 'regip' => $regip));
+}
+
 
 ?>
