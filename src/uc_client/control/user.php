@@ -288,7 +288,7 @@ class usercontrol extends base {
             $status = $_ENV['user']->get_user_by_uid($mobile);
         }
         if($status) {
-            return array($status['uid'],$status['username'],$status['email'],$status['mobile'],$status['wx_unionid']);
+            return array($status['uid'],$status['username'],$status['email'],$status['mobile'],$status['wx_unionid'],$status['parent_id']);
         } else {
             return 0;
         }
@@ -303,11 +303,33 @@ class usercontrol extends base {
             $status = $_ENV['user']->get_user_by_uid($wx_unionid);
         }
         if($status) {
-            return array($status['uid'],$status['username'],$status['email'],$status['mobile'],$status['wx_unionid']);
+            return array($status['uid'],$status['username'],$status['email'],$status['mobile'],$status['wx_unionid'],$status['parent_id']);
         } else {
             return 0;
         }
     }
+
+    function onregister_mobile() {
+        $this->init_input();
+        $mobile = $this->input('mobile');
+        $regip = $this->input('regip');
+
+
+        $uid = $_ENV['user']->add_mobile($mobile, 0, $regip);
+        return $uid;
+    }
+
+    function onregister_wx_unionid() {
+        $this->init_input();
+        $mobile = $this->input('mobile');
+        $wx_unionid = $this->input('wx_unionid');
+        $regip = $this->input('regip');
+
+
+        $uid = $_ENV['user']->add_wx_unionid($mobile, $wx_unionid, 0, $regip);
+        return $uid;
+    }
+
 
 
 

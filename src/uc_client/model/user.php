@@ -288,4 +288,28 @@ class usermodel {
         return $arr;
     }
 
+    function add_mobile($mobile, $uid = 0, $regip = '') {
+        $regip = empty($regip) ? $this->base->onlineip : $regip;
+        $salt = substr(uniqid(rand()), -6);
+        $password = '';
+        $sqladd = $uid ? "uid='".intval($uid)."'," : '';
+        $this->db->query("INSERT INTO ".UC_DBTABLEPRE."members SET $sqladd username='$mobile', password='$password', mobile='$mobile', regip='$regip', regdate='".$this->base->time."', salt='$salt'");
+        $uid = $this->db->insert_id();
+        $this->db->query("INSERT INTO ".UC_DBTABLEPRE."memberfields SET uid='$uid'");
+        return $uid;
+    }
+
+    function add_wx_unionid($mobile,$wx_unionid, $uid = 0, $regip = '') {
+        $regip = empty($regip) ? $this->base->onlineip : $regip;
+        $salt = substr(uniqid(rand()), -6);
+        $password = '';
+        $sqladd = $uid ? "uid='".intval($uid)."'," : '';
+        $this->db->query("INSERT INTO ".UC_DBTABLEPRE."members SET $sqladd username='$mobile', password='$password', mobile='$mobile', wx_unionid='$wx_unionid', regip='$regip', regdate='".$this->base->time."', salt='$salt'");
+        $uid = $this->db->insert_id();
+        $this->db->query("INSERT INTO ".UC_DBTABLEPRE."memberfields SET uid='$uid'");
+        return $uid;
+    }
+
+
+
 }
