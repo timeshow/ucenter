@@ -288,7 +288,7 @@ class usermodel {
         return $arr;
     }
 
-    function add_user_wx($username, $wx_unionid, $email,$mobile, $uid = 0, $questionid = '', $answer = '', $regip = '') {
+    function add_user_register_wx($username, $wx_unionid, $email,$mobile, $uid = 0, $questionid = '', $answer = '', $regip = '') {
         $regip = empty($regip) ? $this->base->onlineip : $regip;
         $salt = substr(uniqid(rand()), -6);
         $password = '';
@@ -300,28 +300,31 @@ class usermodel {
         return $uid;
     }
 
-    function edit_user_wx($username, $wx_unionid, $email,$mobile, $ignoreoldpw = 0, $questionid = '', $answer = '') {
-        $data = $this->db->fetch_first("SELECT username, uid, password, salt FROM ".UC_DBTABLEPRE."members WHERE username='$username'");
-
-        if($ignoreoldpw) {
-            $isprotected = $this->db->result_first("SELECT COUNT(*) FROM ".UC_DBTABLEPRE."protectedmembers WHERE uid = '$data[uid]'");
-            if($isprotected) {
-                return -8;
-            }
-        }
+    function mb_bind_wx($username, $wx_unionid, $email, $mobile) {
+        $data = $this->db->fetch_first("SELECT username, wx_unionid, mobile FROM ".UC_DBTABLEPRE."members WHERE mobile='$mobile'");
 
         $sqladd = '';
         $sqladd .= $email ? ($sqladd ? ',' : '')." email='$email'" : '';
-        $sqladd .= $mobile ? ($sqladd ? ',' : '')." mobile='$mobile'" : '';
-        if($questionid !== '') {
-            if($questionid > 0) {
-                $sqladd .= ($sqladd ? ',' : '')." secques='".$this->quescrypt($questionid, $answer)."'";
-            } else {
-                $sqladd .= ($sqladd ? ',' : '')." secques=''";
-            }
+        $sqladd .= $wx_unionid ? ($sqladd ? ',' : '')." wx_unionid='$wx_unionid'" : '';
+
+        if($sqladd && $data) {
+            $this->db->query("UPDATE ".UC_DBTABLEPRE."members SET $sqladd WHERE username='$username' and mobile='$mobile'");
+            return $this->db->affected_rows();
+        } else {
+            return -7;
         }
-        if($sqladd) {
-            $this->db->query("UPDATE ".UC_DBTABLEPRE."members SET $sqladd WHERE wx_unionid='$wx_unionid'");
+    }
+
+    function wx_bind_wb($username, $wx_unionid, $email, $mobile) {
+        $data = $this->db->fetch_first("SELECT username, wx_unionid, mobile FROM ".UC_DBTABLEPRE."members WHERE wx_unionid='$wx_unionid'");
+
+        $sqladd = '';
+        $sqladd .= $username ? ($sqladd ? ',' : '')." username='$username'" : '';
+        $sqladd .= $email ? ($sqladd ? ',' : '')." email='$email'" : '';
+        $sqladd .= $mobile ? ($sqladd ? ',' : '')." mobile='$mobile'" : '';
+
+        if($sqladd && $data) {
+            $this->db->query("UPDATE ".UC_DBTABLEPRE."members SET $sqladd WHERE $wx_unionid='$wx_unionid'");
             return $this->db->affected_rows();
         } else {
             return -7;

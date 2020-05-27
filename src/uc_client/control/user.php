@@ -319,30 +319,31 @@ class usercontrol extends base {
         $answer = $this->input('answer');
         $regip = $this->input('regip');
 
-        if(($status = $this->_check_username($username)) < 0) {
-            return $status;
-        }
-        if(($status = $this->_check_email($email)) < 0) {
-            return $status;
-        }
-        $uid = $_ENV['user']->add_user_wx($username, $wx_unionid, $email, $mobile, 0, $questionid, $answer, $regip);
+
+        $uid = $_ENV['user']->add_user_register_wx($username, $wx_unionid, $email, $mobile, 0, $questionid, $answer, $regip);
         return $uid;
     }
 
-    function onedit_wx() {
+    function onmb_bind_wx() {
         $this->init_input();
         $username = $this->input('username');
         $wx_unionid = $this->input('wx_unionid');
         $email = $this->input('email');
         $mobile = $this->input('mobile');
-        $ignoreoldpw = $this->input('ignoreoldpw');
-        $questionid = $this->input('questionid');
-        $answer = $this->input('answer');
 
-        if(!$ignoreoldpw && $email && ($status = $this->_check_email($email, $username)) < 0) {
-            return $status;
-        }
-        $status = $_ENV['user']->edit_user($username, $wx_unionid, $email, $mobile, $ignoreoldpw, $questionid, $answer);
+        $status = $_ENV['user']->mb_bind_wx($username, $wx_unionid, $email, $mobile);
+
+        return $status;
+    }
+
+    function onwx_bind_wb() {
+        $this->init_input();
+        $username = $this->input('username');
+        $wx_unionid = $this->input('wx_unionid');
+        $email = $this->input('email');
+        $mobile = $this->input('mobile');
+
+        $status = $_ENV['user']->wx_bind_wb($username, $wx_unionid, $email, $mobile);
 
         return $status;
     }
