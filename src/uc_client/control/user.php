@@ -143,7 +143,8 @@ class usercontrol extends base {
 			$_ENV['user']->loginfailed($username, $ip);
 		}
 		$merge = $status != -1 && !$isuid && $_ENV['user']->check_mergeuser($username) ? 1 : 0;
-		return array($status, $user['username'], $password, $user['email'], $merge);
+		$lastlogin = $_ENV['user']->edit_user_login($user['uid'], $ip);
+		return array($status, $user['username'], $password, $user['email'], $merge, $lastlogin);
 	}
 
 	function onlogincheck() {
@@ -346,6 +347,40 @@ class usercontrol extends base {
         $status = $_ENV['user']->wx_bind_wb($username, $wx_unionid, $email, $mobile);
 
         return $status;
+    }
+
+    function onlogin_mb() {
+        $this->init_input();
+        $mobile = $this->input('mobile');
+        $ip = $this->input('ip');
+
+        $user = $_ENV['user']->get_user_by_mobile($mobile);
+
+        if(empty($user)) {
+            $status = -1;
+        } else {
+            $status = $user['uid'];
+        }
+
+        $lastlogin = $_ENV['user']->edit_user_login($user['uid'], $ip);
+        return array($status, $user['username'], $user['wx_unionid'], $user['email'], $user['mobile'], $lastlogin);
+    }
+
+    function onlogin_wx() {
+        $this->init_input();
+        $wx_unionid = $this->input('wx_unionid');
+        $ip = $this->input('ip');
+
+        $user = $_ENV['user']->get_user_by_wx_unionid($wx_unionid);
+
+        if(empty($user)) {
+            $status = -1;
+        } else {
+            $status = $user['uid'];
+        }
+
+        $lastlogin = $_ENV['user']->edit_user_login($user['uid'], $ip);
+        return array($status, $user['username'], $user['wx_unionid'], $user['email'], $user['mobile'], $lastlogin);
     }
 
 

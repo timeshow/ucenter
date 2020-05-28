@@ -278,6 +278,19 @@ class usermodel {
 		$this->db->query("UPDATE ".UC_DBTABLEPRE."failedlogins SET count=count+1, lastupdate='".$this->base->time."' WHERE ip='".$ip."' OR ip='$username'");
 	}
 
+    function edit_user_login($uid, $lastip = '') {
+        $data = $this->db->fetch_first("SELECT uid, username  FROM ".UC_DBTABLEPRE."members WHERE uid='$uid'");
+
+        $lastip = empty($lastip) ? $this->base->onlineip : $lastip;
+
+        if($data) {
+            $this->db->query("UPDATE ".UC_DBTABLEPRE."members SET lastloginip='$lastip', lastlogintime='".$this->base->time."' WHERE uid='$uid'");
+            return $this->db->affected_rows();
+        }else{
+            return -1;
+        }
+    }
+
     function get_user_by_mobile($mobile) {
         $arr = $this->db->fetch_first("SELECT * FROM ".UC_DBTABLEPRE."members WHERE mobile='$mobile'");
         return $arr;

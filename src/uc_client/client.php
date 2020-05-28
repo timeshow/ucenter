@@ -586,5 +586,15 @@ function uc_user_wx_bind_wb($username, $wx_unionid, $email, $mobile) {
     return call_user_func(UC_API_FUNC, 'user', 'mx_bind_wb', array('username'=>$username, 'wx_unionid'=>$wx_unionid, 'email'=>$email, 'mobile'=>$mobile));
 }
 
+function uc_user_login_mb($mobile, $ip = '') {
+    $return = call_user_func(UC_API_FUNC, 'user', 'login_mb', array('mobile'=>$mobile, 'ip' => $ip));
+    return UC_CONNECT == 'mysql' ? $return : uc_unserialize($return);
+}
+
+function uc_user_login_wx($wx_unionid, $ip = '') {
+    $return = call_user_func(UC_API_FUNC, 'user', 'login_wx', array('wx_unionid'=>$wx_unionid, 'ip' => $ip));
+    return UC_CONNECT == 'mysql' ? $return : uc_unserialize($return);
+}
+
 
 ?>
