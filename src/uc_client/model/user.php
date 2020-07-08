@@ -321,14 +321,14 @@ class usermodel {
         $sqladd .= $wx_unionid ? ($sqladd ? ',' : '')." wx_unionid='$wx_unionid'" : '';
 
         if($sqladd && $data) {
-            $this->db->query("UPDATE ".UC_DBTABLEPRE."members SET $sqladd WHERE username='$username' and mobile='$mobile'");
+            $this->db->query("UPDATE ".UC_DBTABLEPRE."members SET $sqladd WHERE mobile='$mobile'");
             return $this->db->affected_rows();
         } else {
             return -7;
         }
     }
 
-    function wx_bind_wb($username, $wx_unionid, $email, $mobile) {
+    function wx_bind_mb($username, $wx_unionid, $email, $mobile) {
         $data = $this->db->fetch_first("SELECT username, wx_unionid, mobile FROM ".UC_DBTABLEPRE."members WHERE wx_unionid='$wx_unionid'");
 
         $sqladd = '';

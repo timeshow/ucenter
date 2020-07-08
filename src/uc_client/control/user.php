@@ -337,14 +337,14 @@ class usercontrol extends base {
         return $status;
     }
 
-    function onwx_bind_wb() {
+    function onwx_bind_mb() {
         $this->init_input();
         $username = $this->input('username');
         $wx_unionid = $this->input('wx_unionid');
         $email = $this->input('email');
         $mobile = $this->input('mobile');
 
-        $status = $_ENV['user']->wx_bind_wb($username, $wx_unionid, $email, $mobile);
+        $status = $_ENV['user']->wx_bind_mb($username, $wx_unionid, $email, $mobile);
 
         return $status;
     }

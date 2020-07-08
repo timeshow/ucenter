@@ -582,8 +582,8 @@ function uc_user_mb_bind_wx($username, $wx_unionid, $email, $mobile) {
     return call_user_func(UC_API_FUNC, 'user', 'mb_bind_wx', array('username'=>$username, 'wx_unionid'=>$wx_unionid, 'email'=>$email, 'mobile'=>$mobile));
 }
 
-function uc_user_wx_bind_wb($username, $wx_unionid, $email, $mobile) {
-    return call_user_func(UC_API_FUNC, 'user', 'mx_bind_wb', array('username'=>$username, 'wx_unionid'=>$wx_unionid, 'email'=>$email, 'mobile'=>$mobile));
+function uc_user_wx_bind_mb($username, $wx_unionid, $email, $mobile) {
+    return call_user_func(UC_API_FUNC, 'user', 'wx_bind_mb', array('username'=>$username, 'wx_unionid'=>$wx_unionid, 'email'=>$email, 'mobile'=>$mobile));
 }
 
 function uc_user_login_mb($mobile, $ip = '') {
