@@ -337,7 +337,7 @@ class usermodel {
         $sqladd .= $mobile ? ($sqladd ? ',' : '')." mobile='$mobile'" : '';
 
         if($sqladd && $data) {
-            $this->db->query("UPDATE ".UC_DBTABLEPRE."members SET $sqladd WHERE $wx_unionid='$wx_unionid'");
+            $this->db->query("UPDATE ".UC_DBTABLEPRE."members SET $sqladd WHERE wx_unionid='$wx_unionid'");
             return $this->db->affected_rows();
         } else {
             return -7;
